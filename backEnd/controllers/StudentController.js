@@ -1,6 +1,6 @@
 // controllers/studentController.js
 
-import Student from "../modules/Student.js";
+import Student from "../modules/Student.js.js";
 
 export const getAllStudents = async (req, res) => {
     try {
