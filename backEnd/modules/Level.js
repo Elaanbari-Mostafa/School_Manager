@@ -1,17 +1,22 @@
 import { DataTypes } from 'sequelize';
 
-import sequelize from '../configs/SequelizeMySql.js';
+import { levelTableName } from '../common/Constant.js';
+import { sequelize } from '../configs/SequelizeMySql.js';
+import Subscription from './Subscription.js';
 
-const Level = sequelize.define('Level', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
+const Level = sequelize.define(levelTableName, {
     libelle: {
         type: DataTypes.STRING,
         allowNull: false,
     },
+}, {
+    // Use a callback function to define associations
+    hooks: {
+        afterDefine: (levelModule) => {
+            const { models } = sequelize;
+            //Level.belongsTo(Subscription, { as: subscriptionTableName, foreignKey: 'subscriptionId' });
+        },
+    },
 });
-
+    
 export default Level;

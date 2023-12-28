@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize';
 
 import { sequelize } from '../configs/SequelizeMySql.js';
-import Student from './Student.js';
 import { subscriptionTableName } from '../common/Constant.js';
+import Level from './Level.js';
 
 const Subscription = sequelize.define(subscriptionTableName, {
     Duree: {
@@ -24,17 +24,18 @@ const Subscription = sequelize.define(subscriptionTableName, {
 }, {
     // Use a callback function to define associations
     hooks: {
-        afterDefine: (subscriptionModel) => {
+        afterDefine: (subscriptionModel) => { 
             const { models } = sequelize;
-            Subscription.belongsTo(models.Student, { foreignKey: 'studentId' });
-            Subscription.belongsTo(models.Level, { foreignKey: 'levelId' });
-            Subscription.belongsTo(models.Formation, { foreignKey: 'formationId' });
-            Subscription.belongsTo(models.EmploiDuTemps, { foreignKey: 'emploiDuTempsId' });
+            subscriptionModel.belongsTo(models.Student, { foreignKey: 'studentId' });
+            //Subscription.hasOne(Level, { foreignKey: 'levelId' });
+            subscriptionModel.hasOne(models.Training, { foreignKey: 'trainingId' });
+            subscriptionModel.hasOne(models.Timetable, { foreignKey: 'timetableId' });
         },
-    },
+    }, 
 });
 
+// Subscription.hasOne(Level, { foreignKey: 'levelId' });
 // // Define association
-// Subscription.belongsTo(Student, { foreignKey: 'studentId' });
+// Subscription.belongsTo(Student, {  fore ignKey: 'studentId' });
 
 export default Subscription;

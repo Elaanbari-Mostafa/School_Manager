@@ -1,5 +1,4 @@
 import express from 'express';
-import Student from '../modules/Student.js';
 import { getAllStudents, getStudentById, createStudent, deleteStudentById, updateStudentById } from '../controllers/StudentController.js';
 
 const router = express.Router();

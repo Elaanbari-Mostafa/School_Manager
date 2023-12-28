@@ -1,25 +1,28 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 
-dotenv.config()
-const env = process.env;
+// Load environment variables from a .env file
+dotenv.config();
 
-// Connect to the MySQL dastabase
-export var sequelize;
-(function () {
-    sequelize = new Sequelize(env.DATABASE, env.USERNAMEDB, env.PASSWORDDB, {
-        host: env.HOSTDB,
-        dialect: 'mysql',
-    });
-})()
+// Extract environment variables
+const { DATABASE, USERNAMEDB, PASSWORDDB, HOSTDB } = process.env;
 
-// Sync the model with the database
-export const sequelizeSync = async () => {
-    await sequelize.sync({ force: false })
-        .then(() => {
-            console.log('Connected to MySQL database and synced models');
-        })
-        .catch((err) => {
-            console.error('Error connecting to MySQL:', err);
-        });
-}
+// Create a Sequelize instance for connecting to the MySQL database
+export const sequelize = new Sequelize(DATABASE, USERNAMEDB, PASSWORDDB, {
+    host: HOSTDB,
+    dialect: 'mysql',
+});
+
+// Connect to the database and sync models
+export const sequelizeSync = async (force = false) => {
+    try {
+        // Synchronize the model with the database
+        await sequelize.sync({ force: force });
+
+        // Log a successful connection message
+        console.log('Connected to the MySQL database and synced models');
+    } catch (err) {
+        // Log an error message if the connection fails
+        console.error('Error connecting to MySQL:', err);
+    }
+};

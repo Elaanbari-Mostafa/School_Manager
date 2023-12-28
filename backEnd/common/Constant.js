@@ -1,2 +1,5 @@
-export const studentTableName = "Students";
-export const subscriptionTableName = "Subscriptions";
+export const studentTableName = "Student";
+export const subscriptionTableName = "Subscription";
+export const trainingTableName = "Training";
+export const timetableTableName = "Timetable";
+export const levelTableName = "Level";
