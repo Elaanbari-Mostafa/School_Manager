@@ -1,7 +1,10 @@
 import { DataTypes } from 'sequelize';
-import { sequelize } from '../configs/SequelizeMySql.js';
 
-const Student = sequelize.define('Student', {
+import { sequelize } from '../configs/SequelizeMySql.js';
+import { studentTableName, subscriptionTableName } from '../common/Constant.js';
+import Subscription from './Subscription.js'
+
+const Student = sequelize.define(studentTableName, {
     identifiant: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -38,5 +41,8 @@ const Student = sequelize.define('Student', {
         allowNull: false,
     },
 });
+
+// Define association
+Student.hasMany(Subscription, { as: subscriptionTableName, foreignKey: 'studentId' });
 
 export default Student;
