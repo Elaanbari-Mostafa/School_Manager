@@ -86,3 +86,19 @@ export const updateStudentById = async (req, res) => {
         return res.status(500).send('Internal Server Error');
     }
 };
+
+export const getSubscriptionByStudentId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const student = await Student.findByPk(id);
+
+        if (!student) {
+            return res.status(404).send("Student not found"); // Or handle accordingly
+        }
+
+        const subscriptions = await student.getSubscriptions();
+        return res.status(200).json(subscriptions);
+    } catch (error) {
+        throw error;
+    }
+};

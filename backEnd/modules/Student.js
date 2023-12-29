@@ -43,7 +43,5 @@ const Student = sequelize.define(studentTableName, {
 },
 );
 
-// Define association 
-Student.hasMany(Subscription, { as: subscriptionTableName, foreignKey: 'studentId' });
-            
+         
 export default Student;

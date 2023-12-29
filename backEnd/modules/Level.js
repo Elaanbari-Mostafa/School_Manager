@@ -2,7 +2,6 @@ import { DataTypes } from 'sequelize';
 
 import { levelTableName } from '../common/Constant.js';
 import { sequelize } from '../configs/SequelizeMySql.js';
-import Subscription from './Subscription.js';
 
 const Level = sequelize.define(levelTableName, {
     libelle: {

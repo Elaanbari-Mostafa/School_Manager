@@ -5,11 +5,11 @@ import { subscriptionTableName } from '../common/Constant.js';
 import Level from './Level.js';
 
 const Subscription = sequelize.define(subscriptionTableName, {
-    Duree: {
+    duree: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    DureePasser: {
+    dureePasser: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
@@ -26,10 +26,10 @@ const Subscription = sequelize.define(subscriptionTableName, {
     hooks: {
         afterDefine: (subscriptionModel) => { 
             const { models } = sequelize;
-            subscriptionModel.belongsTo(models.Student, { foreignKey: 'studentId' });
+            
             //Subscription.hasOne(Level, { foreignKey: 'levelId' });
-            subscriptionModel.hasOne(models.Training, { foreignKey: 'trainingId' });
-            subscriptionModel.hasOne(models.Timetable, { foreignKey: 'timetableId' });
+            //subscriptionModel.hasOne(models.Training, { foreignKey: 'trainingId' });
+            //subscriptionModel.hasOne(models.Timetable, { foreignKey: 'timetableId' });
         },
     }, 
 });
