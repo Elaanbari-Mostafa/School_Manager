@@ -1,8 +1,14 @@
-import { studentRouteName, subscriptionRouteName } from '../common/Constant.js';
+import { levelRouteName, studentRouteName, subscriptionRouteName, timetableRouteName, trainingRouteName } from '../common/Constant.js';
 import studentRoute from './StudentRoute.js';
 import subscriptionRoute from './SubscriptionRoute.js';
+import levelRoute from './LevelRoute.js';
+import trainingRoute from './TrainingRoute.js';
+import timetableRoute from './TimetablesRoute.js';
 
 export default (app) => {
     app.use(`/api/${studentRouteName}`, studentRoute);
     app.use(`/api/${subscriptionRouteName}`, subscriptionRoute);
+    app.use(`/api/${levelRouteName}`, levelRoute);
+    app.use(`/api/${trainingRouteName}`, trainingRoute);
+    app.use(`/api/${timetableRouteName}`, timetableRoute);
 }
