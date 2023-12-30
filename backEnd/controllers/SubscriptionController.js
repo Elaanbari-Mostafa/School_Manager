@@ -120,7 +120,6 @@ const extractSubscriptionData = async (requestData) => {
 }
 
 const createSubscriptionWithAssociations = async (subscriptionData) => {
-    try {
         const newSubscription = await Subscription.create(subscriptionData.subscription);
 
         // Set associations
@@ -130,13 +129,10 @@ const createSubscriptionWithAssociations = async (subscriptionData) => {
         if (subscriptionData.subscription.timetableId) await newSubscription.setTimetable(subscriptionData.subscription.timetableId);
 
         return newSubscription;
-    } catch (error) {
-        res.status(500).send('Internal Server Error');
-    }
 }
 
 
-const updateSubscriptionWithAssociations = async (subscription ,subscriptionData) => {
+const updateSubscriptionWithAssociations = async (subscription, subscriptionData) => {
     try {
         const updatedSubscription = await subscription.update(subscriptionData.subscription);
 
