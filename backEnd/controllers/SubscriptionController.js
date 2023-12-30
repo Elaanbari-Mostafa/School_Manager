@@ -11,7 +11,7 @@ export const createSubscription = async (req, res) => {
         const newSubscription = await createSubscriptionWithAssociations(subscriptionData);
         return res.status(200).json(newSubscription);;
     } catch (error) {
-        throw error;
+        res.status(500).send('Internal Server Error');
     }
 };
 
@@ -27,7 +27,7 @@ export const getAllSubscriptions = async (req, res) => {
         const subscriptions = await Subscription.findAll();
         return res.status(200).json(subscriptions);
     } catch (error) {
-        throw error;
+        res.status(500).send('Internal Server Error');
     }
 }
 
@@ -38,7 +38,7 @@ export const getSubscriptionById = async (req, res) => {
         const subscription = await Subscription.findByPk(id);
         return res.status(200).json(subscription);
     } catch (error) {
-        throw error;
+        res.status(500).send('Internal Server Error');
     }
 }
 
@@ -61,7 +61,7 @@ export const updateSubscriptionById = async (req, res) => {
 
         res.json(updatedSubscription);
     } catch (error) {
-        console.error('Error updating subscription:', error);
+        //console.error('Error updating subscription:', error);
         res.status(500).send('Internal Server Error');
     }
 }
@@ -78,7 +78,7 @@ export const deleteSubscriptionById = async (req, res) => {
         }
         return res.send("Deletion successful"); // Deletion successful
     } catch (error) {
-        console.error('delete subscription:', error);
+        //console.error('delete subscription:', error);
         return res.status(500).send('Internal Server Error');
     }
 }
@@ -130,7 +130,7 @@ const createSubscriptionWithAssociations = async (subscriptionData) => {
 
         return newSubscription;
     } catch (error) {
-        throw error;
+        res.status(500).send('Internal Server Error');
     }
 }
 
@@ -147,6 +147,6 @@ const updateSubscriptionWithAssociations = async (subscription ,subscriptionData
 
         return updatedSubscription;
     } catch (error) {
-        throw error;
+        res.status(500).send('Internal Server Error');
     }
 }
