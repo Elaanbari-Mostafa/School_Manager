@@ -11,6 +11,7 @@ export const createSubscription = async (req, res) => {
         const newSubscription = await createSubscriptionWithAssociations(subscriptionData);
         return res.status(200).json(newSubscription);;
     } catch (error) {
+        console.log("Error creating subscription : " + error);
         res.status(500).send('Internal Server Error');
     }
 };
@@ -61,7 +62,7 @@ export const updateSubscriptionById = async (req, res) => {
 
         res.json(updatedSubscription);
     } catch (error) {
-        //console.error('Error updating subscription:', error);
+        console.log('Error updating subscription:', error);
         res.status(500).send('Internal Server Error');
     }
 }
