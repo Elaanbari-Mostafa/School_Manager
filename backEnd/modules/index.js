@@ -3,6 +3,9 @@ import Subscription from './Subscription.js';
 import Timetable from './Timetable.js';
 import Training from './Training.js';
 import Student from './Student.js';
+import UserRole from './UserRole.js';
+import User from './User.js';
+import Role from './Role.js';
 // import { subscriptionTableName } from '../common/Constant.js';
 
 // Define association 
@@ -15,4 +18,8 @@ export const CreateRelations = () => {
     Subscription.belongsTo(Training);
     Subscription.belongsTo(Student);//, { foreignKey: 'studentId' });
     Student.hasMany(Subscription);//, { as: subscriptionTableName, foreignKey: 'studentId' });
+    User.hasMany(UserRole);
+    Role.hasMany(UserRole);
+    UserRole.belongsTo(User); 
+    UserRole.belongsTo(Role);
 }

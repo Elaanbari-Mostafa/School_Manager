@@ -1,5 +1,7 @@
 import User from "../modules/User.js";
 import jwt from "jsonwebtoken";
+import UserRole from "../modules/UserRole.js";
+import Role from "../modules/Role.js";
 
 const { JWTSECRET } = process.env;
 
@@ -14,14 +16,28 @@ export const signIn = async (req, res) => {
                 userName: userName,
                 password: password
             },
+            attributes: ['userName', 'id'],
+            include: [
+                {
+                    model: UserRole,
+                    attributes: ['id'],
+                    include: [
+                        {
+                            model: Role,
+                            attributes: ['libelle']
+                        }
+                    ]
+                }
+            ]
         });
 
         if (!existingUser) return res.status(202).json({ message: "User doesn't exist." });
-
+        const roles = existingUser.UserRoles ? existingUser.UserRoles.map(UserRole => UserRole.Role ? UserRole.Role.libelle : null) : [];
         const token = jwt.sign(
             {
                 userName: existingUser.userName,
-                id: existingUser.id
+                id: existingUser.id,
+                roles: roles
             },
             JWTSECRET, { expiresIn: "8h" }
         );
