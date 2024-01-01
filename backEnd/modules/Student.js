@@ -18,11 +18,11 @@ const Student = sequelize.define(studentTableName, {
         allowNull: false,
     },
     dateInscription: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
     },
     dateNaissance: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
     },
     email: {

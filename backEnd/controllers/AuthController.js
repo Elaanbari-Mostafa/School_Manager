@@ -2,6 +2,7 @@ import User from "../modules/User.js";
 import jwt from "jsonwebtoken";
 import UserRole from "../modules/UserRole.js";
 import Role from "../modules/Role.js";
+import UserType from "../modules/UserType.js";
 
 const { JWTSECRET } = process.env;
 
@@ -19,6 +20,10 @@ export const signIn = async (req, res) => {
             attributes: ['userName', 'id'],
             include: [
                 {
+                    model: UserType,
+                    attributes:['id','typeName']
+                },
+                {
                     model: UserRole,
                     attributes: ['id'],
                     include: [
@@ -27,7 +32,8 @@ export const signIn = async (req, res) => {
                             attributes: ['libelle']
                         }
                     ]
-                }
+                },
+
             ]
         });
 
@@ -37,6 +43,7 @@ export const signIn = async (req, res) => {
             {
                 userName: existingUser.userName,
                 id: existingUser.id,
+                userType: existingUser.UserType,
                 roles: roles
             },
             JWTSECRET, { expiresIn: "8h" }

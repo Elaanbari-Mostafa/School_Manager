@@ -1,7 +1,7 @@
 import express from 'express';
 
-import { getSubscriptionByStudentId, getAllStudents, getStudentById, createStudent, deleteStudentById, updateStudentById } from '../controllers/StudentController.js';
-import { subscriptionRouteName } from '../common/Constant.js'
+import { getSubscriptionByStudentId, getAllStudents, getStudentById, createStudent, deleteStudentById, updateStudentById, findStudentsByFields } from '../controllers/StudentController.js';
+import { findstudentbyfildsRouteName, subscriptionRouteName } from '../common/Constant.js'
 
 const router = express.Router();
 router.route('/')
@@ -13,4 +13,7 @@ router.route('/:id')
     .put(updateStudentById)
 router.route(`/:id/${subscriptionRouteName}`)
     .get(getSubscriptionByStudentId)
-export default router;
+router.route(`/${findstudentbyfildsRouteName}`)
+    .post(findStudentsByFields)
+
+export default router; 

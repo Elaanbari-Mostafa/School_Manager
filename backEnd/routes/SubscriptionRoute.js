@@ -1,5 +1,6 @@
 import express from 'express';
-import { getAllSubscriptions, getSubscriptionById, createSubscription, deleteSubscriptionById, updateSubscriptionById } from '../controllers/SubscriptionController.js';
+import { findsubscriptionbyfildsRouteName } from '../common/Constant.js';
+import { getAllSubscriptions, getSubscriptionById, createSubscription, deleteSubscriptionById, updateSubscriptionById, findSubscriptionsByFields } from '../controllers/SubscriptionController.js';
 
 const router = express.Router();
 router.route('/')
@@ -9,5 +10,7 @@ router.route('/:id')
     .get(getSubscriptionById)
     .delete(deleteSubscriptionById)
     .put(updateSubscriptionById)
+router.route(`/${findsubscriptionbyfildsRouteName}`)
+    .post(findSubscriptionsByFields);
 
 export default router;

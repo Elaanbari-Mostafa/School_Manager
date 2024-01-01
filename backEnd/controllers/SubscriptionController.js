@@ -3,7 +3,7 @@ import Student from "../modules/Student.js";
 import Level from "../modules/Level.js";
 import Timetable from "../modules/Timetable.js";
 import Training from "../modules/Training.js";
-import { createSubscriptionWithAssociations, extractSubscriptionData, updateSubscriptionWithAssociations } from "../services/SubscriptionService.js";
+import { createSubscriptionWithAssociations, extractSubscriptionData, getSubscriptionsSearchByFildsData, updateSubscriptionWithAssociations } from "../services/SubscriptionService.js";
 
 // Method Name: createSubscription
 export const createSubscription = async (req, res) => {
@@ -27,7 +27,7 @@ export const getAllSubscriptions = async (req, res) => {
         const subscriptions = await Subscription.findAll();
         return res.status(200).json(subscriptions);
     } catch (error) {
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Internal Server Error' + error);
     }
 }
 
@@ -79,9 +79,20 @@ export const deleteSubscriptionById = async (req, res) => {
         return res.send("Deletion successful"); // Deletion successful
     } catch (error) {
         //console.error('delete subscription:', error);
-        return res.status(500).send('Internal Server Error');
+        return res.status(500).send('Internal Server Error' + error);
     }
 }
 
+export const findSubscriptionsByFields = async (req, res) => {
+    try {
+        const searchCriteria = getSubscriptionsSearchByFildsData(req.body);
+        const subscriptions = await Subscription.findAll({
+            where: searchCriteria,
+        });
 
-
+        return res.status(200).json(subscriptions);
+    } catch (error) {
+        console.log(`Error finding subscriptions by fields: ${error.message}`);
+        res.status(500).send('Internal Server Error' + error)
+    }
+}

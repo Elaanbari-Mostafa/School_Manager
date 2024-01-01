@@ -1,3 +1,6 @@
+import { Op } from "sequelize";
+import { convertToDateString } from "../Tools/Helper.js";
+import Subscription from "../modules/Subscription.js";
 
 export const createSubscriptionWithAssociations = async (subscriptionData) => {
     const newSubscription = await Subscription.create(subscriptionData.subscription);
@@ -27,10 +30,11 @@ export const updateSubscriptionWithAssociations = async (subscription, subscript
     }
 }
 
-export const extractSubscriptionData = async (requestData) => {
+export const extractSubscriptionData = (requestData) => {
     const {
         status,
         trainingPrice,
+        paidAmount,
         dureePasser,
         duree,
         studentId,
@@ -48,6 +52,7 @@ export const extractSubscriptionData = async (requestData) => {
         subscription: {
             status,
             trainingPrice,
+            paidAmount,
             dureePasser,
             duree,
             studentId,
@@ -61,3 +66,58 @@ export const extractSubscriptionData = async (requestData) => {
         // level,
     };
 }
+
+
+export const getSubscriptionsSearchByFildsData = (searchParams) => {
+    const {
+        status,
+        trainingPrice,
+        paidAmount,
+        dureePasser,
+        duree,
+        studentId,
+        trainingId,
+        timetableId,
+        levelId
+    } = extractSubscriptionData(searchParams).subscription;
+
+    const whereClause = {};
+
+    if (status) {
+        whereClause.status = status;
+    }
+
+    if (trainingPrice) {
+        whereClause.trainingPrice = trainingPrice;
+    }
+
+    if (paidAmount) {
+        whereClause.paidAmount = paidAmount;
+    }
+
+    if (dureePasser) {
+        whereClause.dureePasser = dureePasser;
+    }
+
+    if (duree) {
+        whereClause.duree = duree;
+    }
+
+    if (studentId) {
+        whereClause.studentId = studentId;
+    }
+
+    if (trainingId) {
+        whereClause.trainingId = trainingId;
+    }
+
+    if (timetableId) {
+        whereClause.timetableId = timetableId;
+    }
+
+    if (levelId) {
+        whereClause.levelId = levelId;
+    }
+
+    return whereClause;
+};

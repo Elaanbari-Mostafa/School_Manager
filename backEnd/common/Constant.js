@@ -6,6 +6,8 @@ export const levelTableName = "Level";
 export const userTableName = "User";
 export const roleTableName = "Role";
 export const userRoleTableName = "UserRole";
+export const userTypeTableName = "UserType";
+export const groupTableName = "Group";
 
 export const subscriptionRouteName = "subscriptions"
 export const timetableRouteName = "timetables"
@@ -14,3 +16,6 @@ export const trainingRouteName = "trainings"
 export const studentRouteName = "students";
 export const authRouteName = "auth";
 export const signInRouteName = "signin";
+export const findstudentbyfildsRouteName = "findstudentbyfilds";
+export const findsubscriptionbyfildsRouteName = "findsubscriptionbyfilds";
+export const userRouteName = "users";

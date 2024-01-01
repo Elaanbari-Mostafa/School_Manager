@@ -6,7 +6,7 @@ import Student from './Student.js';
 import UserRole from './UserRole.js';
 import User from './User.js';
 import Role from './Role.js';
-// import { subscriptionTableName } from '../common/Constant.js';
+import UserType from './UserType.js';
 
 // Define association 
 export const CreateRelations = () => {
@@ -22,4 +22,6 @@ export const CreateRelations = () => {
     Role.hasMany(UserRole);
     UserRole.belongsTo(User); 
     UserRole.belongsTo(Role);
+    User.belongsTo(UserType);
+    UserType.hasOne(User);
 }

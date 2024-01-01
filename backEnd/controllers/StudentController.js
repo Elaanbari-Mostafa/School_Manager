@@ -1,13 +1,12 @@
-import Level from "../modules/Level.js";
 import Student from "../modules/Student.js";
-import Subscription from "../modules/Subscription.js";
+import { getStudentSearchByFildsData } from '../services/StudentService.js'
 
 export const getAllStudents = async (req, res) => {
     try {
         const students = await Student.findAll();
         return res.status(200).json(students);
     } catch (error) {
-        console.error('Error fetching all students:', error);
+        console.log('Error fetching all students:', error);
         return res.status(500).send('Internal Server Error');
     }
 };
@@ -23,7 +22,7 @@ export const getStudentById = async (req, res) => {
 
         return res.status(200).json(student);
     } catch (error) {
-        console.error('Error fetching student by ID:', error);
+        console.log('Error fetching student by ID:', error);
         return res.status(500).send('Internal Server Error');
     }
 };
@@ -34,7 +33,7 @@ export const createStudent = async (req, res) => {
         const student = await Student.create(studentData);
         return res.status(201).json(student);
     } catch (error) {
-        console.error('Error creating student:', error);
+        console.log('Error creating student:', error);
         return res.status(500).send('Internal Server Error');
     }
 };
@@ -52,7 +51,7 @@ export const deleteStudentById = async (req, res) => {
 
         return res.send('Student deleted successfully');
     } catch (error) {
-        console.error('Error deleting student:', error);
+        console.log('Error deleting student:', error);
         return res.status(500).send('Internal Server Error');
     }
 };
@@ -77,7 +76,7 @@ export const updateStudentById = async (req, res) => {
 
         return res.json(updatedStudent);
     } catch (error) {
-        console.error('Error updating student:', error);
+        console.log('Error updating student:', error);
         return res.status(500).send('Internal Server Error');
     }
 };
@@ -94,6 +93,21 @@ export const getSubscriptionByStudentId = async (req, res) => {
         const subscriptions = await student.getSubscriptions();
         return res.status(200).json(subscriptions);
     } catch (error) {
-        throw error;
+        console.log('Error get subsciption student:', error);
+        return res.status(500).send('Internal Server Error');
     }
-};
+}
+
+export const findStudentsByFields = async (req, res) => {
+    try {
+        const searchCriteria = getStudentSearchByFildsData(req.body);
+        const students = await Student.findAll({
+            where: searchCriteria,
+        });
+
+        return res.status(200).json(students);
+    } catch (error) {
+        console.log(`Error finding students by fields: ${error.message}`);
+        res.status(500).send('Internal Server Error')
+    }
+}
